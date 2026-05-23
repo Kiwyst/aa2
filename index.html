@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Aprendizaje Autónomo - Sitio Interactivo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #F9F7F3;
+            --bg-secondary: #FFFFFF;
+            --accent-warm: #FFB347;
+            --accent-blue: #3B82F6;
+            --text-primary: #1E293B;
+            --text-secondary: #64748B;
+            --border-subtle: #E0E7FF;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-blue) var(--bg-primary);
+        }
+
+        html::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        html::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        html::-webkit-scrollbar-thumb {
+            background: var(--accent-blue);
+            border-radius: 5px;
+        }
+
+        html::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-warm);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, #FDF8F5 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* HEADER FIJO */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-subtle);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            font-size: 28px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 14px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--accent-blue);
+        }
+
+        .nav-menu a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-warm));
+            border-radius: 2px;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            border: none;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .btn-icon:hover {
+            background: var(--accent-warm);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        body.dark-mode {
+            --bg-primary: #1A1A2E;
+            --bg-secondary: #16213E;
+            --text-primary: #EAEAEA;
+            --text-secondary: #B0B0B0;
+            --border-subtle: #2A3F5F;
+        }
+
+        /* MAIN CONTENT */
+        main {
+            margin-top: 80px;
+            padding-bottom: 60px;
+        }
+
+    .slide-image{
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+
+    display: block;
+    margin: 30px auto;
+
+    border-radius: 24px;
+    object-fit: cover;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,.15);
+}
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 179, 71, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .section-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        /* HERO */
+        #hero {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(255, 179, 71, 0.05) 100%);
+        }
+
+        .hero-icon {
+            font-size: 120px;
+            margin-bottom: 30px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(40px, 8vw, 72px);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(28px, 6vw, 48px);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-warm));
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(20px, 3vw, 28px);
+            font-weight: 600;
+            color: var(--accent-blue);
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        /* ANIMACIONES DE SCROLL */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* GRID DE PILARES */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .pillar {
+            background: var(--bg-secondary);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid var(--border-subtle);
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pillar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(255, 179, 71, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .pillar:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-warm);
+            box-shadow: var(--shadow-md);
+        }
+
+        .pillar:hover::before {
+            opacity: 1;
+        }
+
+        .pillar-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .pillar-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .pillar h3 {
+            margin-bottom: 10px;
+        }
+
+        .pillar p {
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        /* CARDS */
+        .card {
+            background: var(--bg-secondary);
+            padding: 30px;
+            border-radius: 16px;
+            border-left: 5px solid var(--accent-blue);
+            transition: var(--transition);
+            margin: 20px 0;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateX(8px);
+        }
+
+        .card-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        /* CONTENIDO CON IMAGEN */
+        .content-with-image {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin: 60px 0;
+        }
+
+        .content-text {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .image-placeholder {
+            background: linear-gradient(135deg, var(--bg-primary), rgba(59, 130, 246, 0.1));
+            border-radius: 20px;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--border-subtle);
+            position: relative;
+            overflow: hidden;
+            min-height: 300px;
+            max-height: 500px;
+        }
+
+        .image-placeholder::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 179, 71, 0.1), transparent),
+                        radial-gradient(circle at 70% 70%, rgba(59, 130, 246, 0.1), transparent);
+            z-index: 1;
+        }
+
+        .placeholder-text {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .placeholder-text strong {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .placeholder-text p {
+            font-size: 13px;
+            margin: 5px 0;
+        }
+
+        .image-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            position: relative;
+            z-index: 3;
+            padding: 20px;
+            cursor: pointer;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .image-placeholder img:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        /* IMAGEN SIN SCROLL (Metacognición) */
+        .image-placeholder-no-scroll {
+            background: linear-gradient(135deg, var(--bg-primary), rgba(59, 130, 246, 0.1));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--border-subtle);
+            position: relative;
+            overflow: hidden;
+            max-height: 500px;
+            width: 100%;
+        }
+
+        .image-placeholder-no-scroll img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 20px;
+            cursor: pointer;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .image-placeholder-no-scroll img:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        /* ESTUDIANTES GRID */
+        .students-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .student-card {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: var(--transition);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .student-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .student-header {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-warm));
+            padding: 40px 20px;
+            text-align: center;
+            color: white;
+            font-size: 48px;
+        }
+
+        .student-content {
+            padding: 30px;
+        }
+
+        .student-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .student-quote {
+            font-style: italic;
+            color: var(--text-secondary);
+            border-left: 3px solid var(--accent-warm);
+            padding-left: 15px;
+            margin: 20px 0;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .image-section {
+            background: var(--bg-primary);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 20px;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed var(--border-subtle);
+            overflow: hidden;
+            max-height: 350px;
+        }
+
+        .image-section img {
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            max-height: 310px;
+            object-fit: contain;
+            cursor: pointer;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .image-section img:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        .upload-instruction {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .upload-instruction strong {
+            color: var(--text-primary);
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        /* QUIZ SECTION */
+        .quiz-container {
+            background: var(--bg-secondary);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 30px 0;
+            border: 2px solid var(--border-subtle);
+        }
+
+        .quiz-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--text-primary);
+        }
+
+        .quiz-question {
+            margin: 30px 0;
+            padding: 20px;
+            background: var(--bg-primary);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        .quiz-question h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .quiz-option {
+            padding: 12px 16px;
+            border: 2px solid var(--border-subtle);
+            border-radius: 10px;
+            cursor: pointer;
+            background: white;
+            transition: var(--transition);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--accent-blue);
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--accent-blue);
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        /* BOTONES */
+        .button {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .button-primary {
+            background: linear-gradient(135deg, var(--accent-blue), #2563EB);
+            color: white;
+        }
+
+        .button-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .button-secondary {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border: 2px solid var(--border-subtle);
+        }
+
+        .button-secondary:hover {
+            border-color: var(--accent-blue);
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        /* ACHIEVEMENT MODAL */
+        .achievement-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .achievement-content {
+            background: var(--bg-secondary);
+            padding: 50px 40px;
+            border-radius: 24px;
+            text-align: center;
+            max-width: 400px;
+            animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .medal-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: bounce 1s ease infinite;
+        }
+
+        .achievement-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--accent-warm);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes popIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8) rotateZ(-10deg);
+            }
+            50% {
+                transform: scale(1.05) rotateZ(5deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotateZ(0deg);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* LIGHTBOX PARA IMÁGENES AMPLIADAS */
+        .image-lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .image-lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-img {
+            max-width: 90vw;
+            max-height: 90vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.2);
+            animation: zoomIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 32px;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-subtle);
+            padding: 60px 40px;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 15px;
+        }
+
+        .footer-section p {
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .footer-credits {
+            border-top: 1px solid var(--border-subtle);
+            padding-top: 30px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            header {
+                padding: 0 20px;
+            }
+
+            .nav-menu {
+                gap: 15px;
+                font-size: 12px;
+            }
+
+            section {
+                padding: 40px 20px;
+                min-height: auto;
+            }
+
+            .content-with-image {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .pillars-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .students-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card-row {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+
+            .image-placeholder {
+                aspect-ratio: auto;
+            }
+
+            .lightbox-img {
+                max-width: 95vw;
+                max-height: 95vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- LIGHTBOX PARA IMÁGENES -->
+    <div class="image-lightbox" id="imageLightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+            <img id="lightboxImg" class="lightbox-img" alt="Imagen ampliada">
+        </div>
+    </div>
+
+    <!-- HEADER FIJO -->
+    <header>
+        <div class="logo">
+            <span class="logo-icon">🧠</span>
+            <span>Aprendizaje Autónomo</span>
+        </div>
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="#hero" class="nav-link active">Inicio</a></li>
+                <li><a href="#triada" class="nav-link">La Triada</a></li>
+                <li><a href="#conceptos" class="nav-link">Conceptos</a></li>
+                <li><a href="#estudiantes" class="nav-link">Equipo</a></li>
+                <li><a href="#quiz" class="nav-link">Quiz</a></li>
+                <li><a href="#referencias" class="nav-link">Referencias</a></li>
+            </ul>
+        </nav>
+        <div class="header-controls">
+            <button class="btn-icon" id="narrationBtn" title="Narración automática">🎙️</button>
+            <button class="btn-icon" id="darkModeBtn" title="Modo oscuro">☀️</button>
+            <button class="btn-icon" id="musicBtn" title="Música de fondo">🎵</button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+
+        <!-- HERO SECTION -->
+        <section id="hero">
+            <div class="section-background"></div>
+            <div class="section-content fade-in">
+                <div class="hero-icon">🧠</div>
+                <h1>Aprendizaje Autónomo</h1>
+                <p class="subtitle">Metacognición, Autorregulación, Automotivación</p>
+                <p style="font-size: 16px; max-width: 600px; margin: 20px auto;">
+                    Un viaje interactivo por los pilares fundamentales del aprendizaje independiente
+                </p>
+                <p><strong>Estudiantes:</strong></p>
+
+    <div style="
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+        margin-top:15px;
+    ">
+        <span>Fajardo Castrillón Madil Tatiana</span>
+        <span>Moriano Martínez Kewym Stiven</span>
+        <span>Ortega Tapia Liseth Carime</span>
+        <span>Valencia Chacue Yurley</span>
+    </div>
+                    <p style="margin-top: 10px;"><strong>Tutora:</strong> Francy Cathalina Ojeda Ruiz</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- LA TRIADA -->
+        <section id="triada">
+            <div class="section-background"></div>
+            <div class="section-content">
+                <h2 class="fade-in">La Triada del Aprendizaje Autónomo</h2>
+                <div class="pillars-grid">
+                    <div class="pillar fade-in">
+                        <div class="pillar-content">
+                            <div class="pillar-icon">🎯</div>
+                            <h3>Metacognición</h3>
+                            <p>Conocimiento sobre tus propios procesos de aprendizaje.</p>
+                        </div>
+                    </div>
+                    <div class="pillar fade-in">
+                        <div class="pillar-content">
+                            <div class="pillar-icon">🎛️</div>
+                            <h3>Autorregulación</h3>
+                            <p>Capacidad de controlar y ajustar tu aprendizaje.</p>
+                        </div>
+                    </div>
+                    <div class="pillar fade-in">
+                        <div class="pillar-content">
+                            <div class="pillar-icon">⚡</div>
+                            <h3>Automotivación</h3>
+                            <p>Impulso interno para aprender y crecer.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONCEPTOS -->
+        <section id="conceptos">
+            <div class="section-background"></div>
+            <div class="section-content">
+                <h2 class="fade-in">Conceptos Fundamentales</h2>
+
+                <!-- METACOGNICIÓN -->
+                <div class="content-with-image slide-in-left">
+                    <div class="content-text">
+                        <h3>Metacognición en Profundidad</h3>
+                        <p>La metacognición es el conocimiento que tienes sobre tus propios procesos de pensamiento y aprendizaje.</p>
+                        <div class="card">
+                            <strong>Componentes clave:</strong>
+                            <p>✓ Conocimiento metacognitivo: Saber cómo aprendes</p>
+                            <p>✓ Regulación metacognitiva: Supervisar tu aprendizaje</p>
+                        </div>
+                    </div>
+                    <div class="image-placeholder-no-scroll">
+                        <img src="img/Img1 ciclo.jpeg" alt="Metacognición" onclick="openLightbox(this.src, 'Metacognición')">
+                    </div>
+                </div>
+
+                <!-- AUTORREGULACIÓN -->
+                <div class="content-with-image slide-in-right" style="margin-top: 80px;">
+                    <div class="image-placeholder-no-scroll">
+                        <img src="img/Lizeth karime.jpeg" alt="Autorregulación" onclick="openLightbox(this.src, 'Autorregulación')">
+                    </div>
+                    <div class="content-text">
+                        <h3>Autorregulación según Zulma Lanz</h3>
+                        <p>La autorregulación es el resultado de la integración de tres elementos fundamentales.</p>
+                        <div class="card-row">
+                            <div class="card">
+                                <strong>🧠 Cognición</strong>
+                            </div>
+                            <div class="card">
+                                <strong>🔍 Metacognición</strong>
+                            </div>
+                            <div class="card">
+                                <strong>💪 Motivación</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AUTOMOTIVACIÓN -->
+                <div style="margin-top: 80px;">
+                    <h3 style="text-align: center; margin-bottom: 40px;" class="fade-in">Automotivación: El Motor Interno</h3>
+                    <img src="img/cartoon.jpeg" alt="cartoon" class="slide-image">
+                    <div class="card-row">
+                        <div class="card fade-in">
+                            <strong style="font-size: 18px;">🌟 Motivación Intrínseca</strong>
+                            <p style="margin-top: 15px;">Aprendes porque te interesa genuinamente el tema.</p>
+                        </div>
+                        <div class="card fade-in">
+                            <strong style="font-size: 18px;">🎁 Motivación Extrínseca</strong>
+                            <p style="margin-top: 15px;">Aprendes por recompensas externas o reconocimiento.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TIC Y AUTORREGULACIÓN -->
+        <section>
+            <div class="section-background"></div>
+            <div class="section-content">
+                <h2 class="fade-in">TIC y Autorregulación</h2>
+                <p style="text-align: center; margin-bottom: 40px;"><strong>Aporte de Yurley:</strong> Las tecnologías transforman cómo autorregulamos nuestro aprendizaje.</p>
+
+                <div class="content-with-image slide-in-left">
+                    <div class="content-text">
+                        <h3>Transformación Digital del Aprendizaje</h3>
+                        <p>Las herramientas digitales ofrecen nuevas formas de aprender colaborativamente y de forma autorregulada.</p>
+                        <div class="card">
+                            <strong>📊 Herramientas Colaborativas</strong>
+                            <p style="font-size: 14px; margin-top: 8px;">Google Workspace, Trello, Slack</p>
+                        </div>
+                        <div class="card">
+                            <strong>🎮 Gamificación</strong>
+                            <p style="font-size: 14px; margin-top: 8px;">Puntos, badges y leaderboards</p>
+                        </div>
+                        <div class="card">
+                            <strong>📚 E-Learning Adaptativo</strong>
+                            <p style="font-size: 14px; margin-top: 8px;">Plataformas personalizadas</p>
+                        </div>
+                    </div>
+                    <div class="image-placeholder-no-scroll">
+                        <img src="img/Herramientas Tecno-Educativas 21st Century Totales.png" alt="3 herramientas" onclick="openLightbox(this.src, 'Herramientas TIC')">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AUTOESTIMA Y AUTONOMÍA JUNTOS -->
+        <section>
+            <div class="section-background"></div>
+            <div class="section-content">
+                <h2 class="fade-in">Autoestima y Autonomía</h2>
+                <p style="text-align: center; margin-bottom: 40px;"><strong>Aporte de Madil:</strong> Relación fundamental entre autonomía, confianza personal y desempeño académico.</p>
+
+                <div class="content-with-image slide-in-left">
+                    <div class="content-text">
+                        <h3>Ideas principales</h3>
+                        <p>Cuando los estudiantes aprenden de manera autónoma, confían más en sus capacidades y sentirse motivados para seguir aprendiendo.</p>
+                        <div class="card" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1)); border-left-color: var(--success);">
+                            <strong style="color: var(--success);">El Ciclo Positivo</strong>
+                            <p style="margin-top: 15px; font-size: 14px;">
+                                1️⃣ El aprendizaje autónomo fortalece la autoestima.<br>
+                                2️⃣ Los estudiantes se sienten más seguros cuando aprenden por sí mismos. <br>
+                                3️⃣ La independencia ayuda a mejorar la responsabilidad.<br>
+                                4️⃣ El apoyo docente sigue siendo importante. 
+                            </p>
+                        </div>
+                         <p style="text-align: left; margin-bottom: 40px;"><strong>Ejemplo: </strong>Un estudiante de quinto año aprende a estudiar solo para una exposición. Al presentar correctamente frente al curso y recibir felicitaciones, aumenta su autoestima, seguridad e independencia académica.</p>
+
+                    </div>
+                    <div class="image-placeholder-no-scroll">
+                        <img src="img/autoestima.jpeg" alt="Autoestima" onclick="openLightbox(this.src, 'Autoestima y Autonomía')">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PENSAMIENTO CRÍTICO Y CREATIVO -->
+        <section>
+            <div class="section-background"></div>
+            <div class="section-content">
+                <h2 class="fade-in">Pensamiento Crítico y Creativo</h2>
+                <p style="text-align: center; margin-bottom: 40px;"><strong>Aporte de Kewym:</strong> Estrategias según modelo Inudi Perú.</p>
+
+                <div class="content-with-image slide-in-left">
+                    <div class="image-placeholder-no-scroll">
+                        <img src="img/modelo estrategias aprendizaje Kw.png" alt="Pensamiento crítico" onclick="openLightbox(this.src, 'Pensamiento Crítico y Creativo')">
+                    </div>
+                    <div class="content-text">
+                        <h3>Modelo Inudi Perú (2022)</h3>
+                        <div class="card-row" style="grid-template-columns: 1fr;">
+                            <div class="card">
+                                <strong>🔍 Pensamiento Crítico</strong>
+                                <p style="font-size: 14px; margin-top: 8px;">Analizar, cuestionar, evaluar.</p>
+                            </div>
+                            <div class="card">
+                                <strong>💡 Pensamiento Creativo</strong>
+                                <p style="font-size: 14px; margin-top: 8px;">Generar ideas nuevas, innovar.</p>
+                            </div>
+                        </div>
+                        <p style="margin-top: 20px;"><strong>Beneficio:</strong> Reconocen fortalezas y desarrollan estrategias propias.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EQUIPO DE TRABAJO -->
+        <section id="estudiantes">
+            <div class="section-background"></div>
+            <div class="section-content">
+                <h2 class="fade-in">El Equipo de Trabajo</h2>
+                <p style="text-align: center; margin-bottom: 50px;">Cuatro perspectivas, un mismo objetivo</p>
+
+                <div class="students-grid">
+                    <div class="student-card fade-in">
+                        <div class="student-header">👩‍💼</div>
+                        <div class="student-content">
+                            <div class="student-name">Madil</div>
+                            <div class="student-quote">"Aprender no solo depende del docente, sino del interés y disciplina."</div>
+                            <p><strong>Énfasis:</strong> Autoestima y autonomía</p>
+                        </div>
+                    </div>
+
+                    <div class="student-card fade-in">
+                        <div class="student-header">👩‍🎓</div>
+                        <div class="student-content">
+                            <div class="student-name">Liseth</div>
+                            <div class="student-quote">"La metacognición es la brújula que nos ayuda a navegar nuestro aprendizaje."</div>
+                            <p><strong>Énfasis:</strong> Triada fundamental</p>
+                        </div>
+                    </div>
+
+                    <div class="student-card fade-in">
+                        <div class="student-header">👩‍💻</div>
+                        <div class="student-content">
+                            <div class="student-name">Yurley</div>
+                            <div class="student-quote">"La tecnología redefine roles hacia la guía y facilitación."</div>
+                            <p><strong>Énfasis:</strong> Herramientas TIC</p>
+                        </div>
+                    </div>
+
+                    <div class="student-card fade-in">
+                        <div class="student-header">🧠</div>
+                        <div class="student-content">
+                            <div class="student-name">Kewym</div>
+                            <div class="student-quote">"El pensamiento crítico nos empodera para cuestionar y crear soluciones."</div>
+                            <p><strong>Énfasis:</strong> Pensamiento crítico</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUIZ -->
+        <section id="quiz">
+            <div class="section-background"></div>
+            <div class="section-content">
+                <h2 class="fade-in">Evalúa tu Aprendizaje</h2>
+                <p style="text-align: center; margin-bottom: 40px;">Responde para verificar tu comprensión</p>
+
+                <div class="quiz-container fade-in">
+                    <div class="quiz-title">📝 Quiz: Conceptos Esenciales</div>
+
+                    <div class="quiz-question">
+                        <h4>1. ¿Cuál es la definición correcta de metacognición?</h4>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" value="0"> El conocimiento sobre tus propios procesos de aprendizaje
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" value="1"> Capacidad de memorizar rápido
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" value="2"> Pensar de forma lógica
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q1" value="3"> Resolver problemas matemáticos
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>2. Según Zulma Lanz, ¿cuáles son los 3 elementos que integran la autorregulación?</h4>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" value="0"> Lectura, escritura y cálculo
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" value="1"> Cognición, metacognición y motivación
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" value="2"> Atención, memoria y concentración
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q2" value="3"> Creatividad, innovación y disciplina
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question">
+                        <h4>3. Diferencia principal entre motivación intrínseca y extrínseca</h4>
+                        <div class="quiz-options">
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" value="0"> No hay diferencia
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" value="1"> La intrínseca viene del interior, la extrínseca de factores externos
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" value="2"> La extrínseca es más importante
+                            </label>
+                            <label class="quiz-option">
+                                <input type="radio" name="q3" value="3"> La intrínseca no tiene valor
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="button button-primary" id="submitQuizBtn">Enviar Respuestas</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- REFERENCIAS -->
+        <section id="referencias">
+            <div class="section-background"></div>
+            <div class="section-content">
+                <h2 class="fade-in">Bibliografía y Referencias</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 40px;">
+                    <div class="card fade-in">
+                        <strong>Flores-González, F. (2024)</strong>
+                        <p style="margin-top: 10px;">Metacognición y autorregulación en el aprendizaje autónomo.</p>
+                    </div>
+                    <div class="card fade-in">
+                        <strong>Lanz, Z. (2006)</strong>
+                        <p style="margin-top: 10px;">Autorregulación del aprendizaje.</p>
+                    </div>
+                    <div class="card fade-in">
+                        <strong>Sáenz Espín, M. (2024)</strong>
+                        <p style="margin-top: 10px;">Autonomía, autoestima y desempeño académico.</p>
+                    </div>
+                    <div class="card fade-in">
+                        <strong>Paredes, J., et al. (2021)</strong>
+                        <p style="margin-top: 10px;">Tecnologías TIC en la autorregulación.</p>
+                    </div>
+                    <div class="card fade-in">
+                        <strong>Inudi Perú (2022)</strong>
+                        <p style="margin-top: 10px;">Pensamiento crítico y creativo en educación primaria.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+            <div class="footer-credits">
+            <p>2026 Aprendizaje Autónomo. Kiwyst.</p>
+            <p style="margin-top: 10px; font-size: 12px;">Proyecto educativo interactivo</p>
+        </div>
+    </footer>
+
+    <script>
+        // ===== ANIMACIONES DE SCROLL =====
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -100px 0px' };
+        const observer = new IntersectionObserver((entries) => { 
+            entries.forEach(entry => { 
+                if (entry.isIntersecting) { 
+                    entry.target.classList.add('visible'); 
+                    observer.unobserve(entry.target); 
+                } 
+            }); 
+        }, observerOptions);
+        document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .card, .pillar, .student-card').forEach(el => observer.observe(el));
+
+        // ===== NAVEGACIÓN ACTIVA =====
+        const navLinks = document.querySelectorAll('.nav-link');
+        window.addEventListener('scroll', () => { 
+            let current = ''; 
+            document.querySelectorAll('section').forEach(section => { 
+                const sectionTop = section.offsetTop; 
+                if (pageYOffset >= sectionTop - 200) current = section.getAttribute('id'); 
+            }); 
+            navLinks.forEach(link => { 
+                link.classList.remove('active'); 
+                if (link.getAttribute('href').slice(1) === current) link.classList.add('active'); 
+            }); 
+        });
+
+        // ===== DARK MODE =====
+        const darkModeBtn = document.getElementById('darkModeBtn');
+        if (localStorage.getItem('darkMode') === 'true') { 
+            document.body.classList.add('dark-mode'); 
+            darkModeBtn.textContent = '🌙'; 
+        }
+        darkModeBtn.addEventListener('click', () => { 
+            document.body.classList.toggle('dark-mode'); 
+            const isDark = document.body.classList.contains('dark-mode'); 
+            localStorage.setItem('darkMode', isDark); 
+            darkModeBtn.textContent = isDark ? '🌙' : '☀️'; 
+        });
+
+        // ===== NARRACIÓN =====
+        const narrationBtn = document.getElementById('narrationBtn'); 
+        let isSpeaking = false;
+        narrationBtn.addEventListener('click', () => { 
+            if (isSpeaking) { 
+                speechSynthesis.cancel(); 
+                isSpeaking = false; 
+                narrationBtn.style.background = ''; 
+            } else { 
+                const utterance = new SpeechSynthesisUtterance(document.body.innerText); 
+                utterance.lang = 'es-ES'; 
+                utterance.rate = 0.9; 
+                utterance.onstart = () => { 
+                    isSpeaking = true; 
+                    narrationBtn.style.background = 'var(--accent-blue)'; 
+                    narrationBtn.style.color = 'white'; 
+                }; 
+                utterance.onend = () => { 
+                    isSpeaking = false; 
+                    narrationBtn.style.background = ''; 
+                    narrationBtn.style.color = ''; 
+                }; 
+                speechSynthesis.speak(utterance); 
+            } 
+        });
+
+        // ===== MÚSICA DE FONDO =====
+        let bgMusic = null;
+        let musicPlaying = false;
+        const musicBtn = document.getElementById('musicBtn');
+        function initMusic() {
+            if (!bgMusic) {
+                bgMusic = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3');
+                bgMusic.loop = true;
+                bgMusic.volume = 0.3;
+            }
+            if (musicPlaying) {
+                bgMusic.pause();
+                musicPlaying = false;
+                musicBtn.textContent = '🎵';
+            } else {
+                bgMusic.play().catch(e => console.log("Autoplay bloqueado"));
+                musicPlaying = true;
+                musicBtn.textContent = '🔊';
+            }
+        }
+        musicBtn.addEventListener('click', initMusic);
+
+        // ===== SONIDOS PARA EL QUIZ =====
+        function playBeep(type) {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                oscillator.type = 'sine';
+                if (type === 'correct') {
+                    oscillator.frequency.value = 880;
+                    gainNode.gain.value = 0.2;
+                    oscillator.start();
+                    gainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.5);
+                    oscillator.stop(audioCtx.currentTime + 0.5);
+                } else {
+                    oscillator.frequency.value = 440;
+                    gainNode.gain.value = 0.2;
+                    oscillator.start();
+                    gainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 0.4);
+                    oscillator.stop(audioCtx.currentTime + 0.4);
+                }
+                setTimeout(() => audioCtx.close(), 600);
+            } catch(e) { console.warn("Web Audio no soportado"); }
+        }
+
+        // ===== QUIZ CON SONIDOS =====
+        function submitQuiz() {
+            const answers = [0, 1, 1];
+            let score = 0;
+            for (let i = 0; i < answers.length; i++) {
+                const selected = document.querySelector(`input[name="q${i+1}"]:checked`);
+                if (selected && parseInt(selected.value) === answers[i]) {
+                    score++;
+                    playBeep('correct');
+                    if(selected.parentElement) selected.parentElement.style.borderColor = 'var(--success)';
+                } else {
+                    if(selected) playBeep('wrong');
+                    if(selected && selected.parentElement) selected.parentElement.style.borderColor = 'var(--danger)';
+                }
+            }
+            showAchievement(`¡Puntuación: ${score}/3!`, '🎯');
+        }
+        document.getElementById('submitQuizBtn').addEventListener('click', submitQuiz);
+
+        function showAchievement(title, icon) {
+            const modal = document.createElement('div'); 
+            modal.className = 'achievement-modal';
+            modal.innerHTML = `<div class="achievement-content"><div class="medal-icon">${icon}</div><div class="achievement-title">${title}</div><p style="color: var(--text-secondary);">Gracias por completar el quiz</p></div>`;
+            document.body.appendChild(modal);
+            modal.addEventListener('click', () => modal.remove());
+            setTimeout(() => { if(modal.parentElement) modal.remove(); }, 3000);
+        }
+
+        // ===== LIGHTBOX PARA IMÁGENES =====
+        function openLightbox(imageSrc, imageAlt) {
+            const lightbox = document.getElementById('imageLightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            lightboxImg.src = imageSrc;
+            lightboxImg.alt = imageAlt;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('imageLightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        document.getElementById('imageLightbox').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('imageLightbox')) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+
+        // ===== SMOOTH SCROLL =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => { 
+            anchor.addEventListener('click', function(e) { 
+                e.preventDefault(); 
+                const target = document.querySelector(this.getAttribute('href')); 
+                if (target) target.scrollIntoView({ behavior: 'smooth' }); 
+            }); 
+        });
+    </script>
+</body>
+</html>
